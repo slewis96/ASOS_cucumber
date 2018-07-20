@@ -1,16 +1,20 @@
 Feature: Signing up for an ASOS account
 
+  @success @successsu
   Scenario: Successfully signup
-    Given: I am on the signup page
-    When: I input the correct details
-    And: I click submit
-    Then: I should be signed in on my new account
+    Given I am on the signup page
+    When I input the correct details
+    And I input valid password
+    And I click register
+    Then I should be signed in on my account
 
-  Scenario: Inputting invalid password
-    Given: I am on the signup page
-    When: I input the an invalid <password>
-    And: I click submit
-    Then: I get an appropriate <error>
+  @invalid @invalidsu
+  Scenario Outline: Inputting invalid password
+    Given I am on the signup page
+    When I input the correct details
+    And I input the an invalid <password>
+    And I click register
+    Then I get an appropriate <error>
 
     Examples:
     | password |                          error                                                  |
