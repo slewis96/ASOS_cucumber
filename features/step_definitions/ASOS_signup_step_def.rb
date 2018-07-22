@@ -13,7 +13,7 @@ Before '@successsu or @invalidsu' do
 end
 After do |scenario|
   if scenario.passed?
-    File.open("/../../accounts.txt","w") do |fo|
+    File.open("../../accounts.txt","wb") do |fo|
       fo.puts "hello world"
     end
   end
