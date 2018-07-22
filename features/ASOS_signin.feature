@@ -9,9 +9,9 @@ Feature: Signing up for an ASOS account
     Then I should be signed in on my account
 
   @invalid @invalidsi
-  Scenario Outline: Inputting invalid password signin
+  Scenario: Inputting invalid password signin
     Given I am on the signin page
     When I input the correct details signin
     And I input the an incorrect password
     And I click signin
-    Then I get an appropriate error signin
+    Then I get an signin error

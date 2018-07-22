@@ -8,13 +8,21 @@ Given("I am on the signin page") do
   asos_home_page.visit_sign_in_page
   sleep(1)
 end
-
+Before '@successsu or @invalidsu' do
+  @randomstr = (0...8).map { (65 + rand(26)).chr }.join
+end
+After do |scenario|
+  if scenario.passed?
+    File.open("/../../accounts.txt","w") do |fo|
+      fo.puts "hello world"
+    end
+  end
+end
 When("I input the correct details") do
-  randomstr = (0...8).map { (65 + rand(26)).chr }.join
-  randomemail = randomstr + "@" + randomstr + ".com"
+  randomemail = @randomstr + "@" + @randomstr + ".com"
   asos_sign_up_page.input_email(randomemail)
-  asos_sign_up_page.input_fname(randomstr)
-  asos_sign_up_page.input_lname(randomstr)
+  asos_sign_up_page.input_fname(@randomstr)
+  asos_sign_up_page.input_lname(@randomstr)
   asos_sign_up_page.input_birth_date(1, "February", 1960)
   sleep(1)
 end
@@ -40,7 +48,7 @@ end
 Then("I should be signed in on my account") do
   expect(asos_home_page.signed_in?).to eq "Sign Out"
 end
-Then("I get an appropriate error signin") do
+Then("I get an signin error") do
   expect(asos_sign_up_page.correct_error_sign_in).to eq true
 end
 
