@@ -25,6 +25,9 @@ class ASOSSignUpPage
   def correct_error_sign_in
     page.has_content?("Looks like either your email address or password were incorrect. Wanna try again?")
   end
+  def correct_error_email
+    page.has_content?("Email fail! Please type in your correct email address")
+  end
   def click_submit
     click_on("register")
   end

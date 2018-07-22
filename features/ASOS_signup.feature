@@ -21,3 +21,11 @@ Feature: Signing up for an ASOS account
     |          |                          Hey, we need a password here                           |
     | 1111111  |                     At least 6 letters and 1 number, please!                    |
     | aaaaaaa  |                     At least 6 letters and 1 number, please!                    |
+
+  @invalid @invalidemail
+  Scenario: Inputting invalid email
+    Given I am on the signup page
+    When I input the correct details
+    And I input the an email without an @
+    And I click register
+    Then I get an prompted for correct email

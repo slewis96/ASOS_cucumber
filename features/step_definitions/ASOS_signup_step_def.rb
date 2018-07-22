@@ -8,13 +8,13 @@ Given("I am on the signin page") do
   asos_home_page.visit_sign_in_page
   sleep(1)
 end
-Before '@successsu or @invalidsu' do
+Before '@successsu or @invalidsu or @invalidemail' do
   @randomstr = (0...8).map { (65 + rand(26)).chr }.join
 end
-After do |scenario|
+After '@successsu' do |scenario|
   if scenario.passed?
-    File.open("../../accounts.txt","wb") do |fo|
-      fo.puts "hello world"
+    File.open("accounts.txt","a") do |fo|
+      fo.puts @randomstr
     end
   end
 end
@@ -58,4 +58,12 @@ end
 
 Then(/^I get an appropriate (.*)$/) do |error|
   expect(asos_sign_up_page.correct_error).to eq error
+end
+
+When("I input the an email without an @") do
+  asos_sign_up_page.input_email("emailemail.com")
+end
+
+Then("I get an prompted for correct email") do
+  expect(asos_sign_up_page.correct_error_email).to eq true
 end
